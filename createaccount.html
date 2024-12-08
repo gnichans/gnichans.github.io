@@ -34,3 +34,12 @@ document.getElementById('createAccountForm').addEventListener('submit', function
     // Thêm tài khoản vào localStorage
     existingUsers.push({ username, email, password });
     localStorage.se
+
+        <form id="createAccountForm">
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Create Account</button>
+    <p id="errorMsg" style="color: red; display: none;"></p>
+</form>
+
