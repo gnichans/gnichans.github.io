@@ -28,3 +28,10 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         errorMsg.style.display = 'block';
     }
 });
+
+<form id="loginForm">
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+    <p id="errorMsg" style="color: red; display: none;"></p>
+</form>
