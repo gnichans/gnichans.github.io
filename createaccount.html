@@ -1,45 +1,113 @@
-document.getElementById('createAccountForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Ngăn reload trang
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
 
-    const username = document.getElementById('username').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
-    const errorMsg = document.getElementById('errorMsg'); // Phần hiển thị lỗi
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
 
-    // Xóa thông báo lỗi cũ
-    errorMsg.textContent = '';
-    errorMsg.style.display = 'none';
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
 
-    // Kiểm tra các trường dữ liệu
-    if (!username || !email || !password) {
-        errorMsg.textContent = 'Hãy nhập thông tin đầy đủ!';
-        errorMsg.style.display = 'block';
-        return;
-    }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-    if (password.length < 8) {
-        errorMsg.textContent = 'Mật khẩu có vẻ không hợp lệ, chúng tôi chỉ cho phép người dùng tạo mật khẩu tối đa 8 ký tự!';
-        errorMsg.style.display = 'block';
-        return;
-    }
+        button:hover {
+            background-color: #0056b3;
+        }
 
-    // Kiểm tra username đã tồn tại chưa
-    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
-    if (existingUsers.some(user => user.username === username)) {
-        errorMsg.textContent = 'Tên người dùng đã tồn tại. Vui lòng chọn tên khác.';
-        errorMsg.style.display = 'block';
-        return;
-    }
+        p#errorMsg {
+            color: red;
+            display: none;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form id="createAccountForm">
+        <h2>Create Account</h2>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Create Account</button>
+        <p id="errorMsg"></p>
+    </form>
 
-    // Thêm tài khoản vào localStorage
-    existingUsers.push({ username, email, password });
-    localStorage.se
+    <script>
+        document.getElementById('createAccountForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Ngăn reload trang
 
-        <form id="createAccountForm">
-    <input type="text" id="username" placeholder="Username" required>
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <button type="submit">Create Account</button>
-    <p id="errorMsg" style="color: red; display: none;"></p>
-</form>
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMsg = document.getElementById('errorMsg'); // Phần hiển thị lỗi
 
+            // Xóa thông báo lỗi cũ
+            errorMsg.textContent = '';
+            errorMsg.style.display = 'none';
+
+            // Kiểm tra các trường dữ liệu
+            if (!username || !email || !password) {
+                errorMsg.textContent = 'Hãy nhập thông tin đầy đủ!';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            if (password.length < 8) {
+                errorMsg.textContent = 'Mật khẩu có vẻ không hợp lệ, chúng tôi chỉ cho phép người dùng tạo mật khẩu tối đa 8 ký tự!';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            // Kiểm tra username đã tồn tại chưa
+            const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+            if (existingUsers.some(user => user.username === username)) {
+                errorMsg.textContent = 'Tên người dùng đã tồn tại. Vui lòng chọn tên khác.';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            // Thêm tài khoản vào localStorage
+            existingUsers.push({ username, email, password });
+            localStorage.setItem('users', JSON.stringify(existingUsers));
+
+            alert('Tài khoản được tạo thành công!');
+            window.location.href = '/loginaccount'; // Chuyển hướng đến trang đăng nhập
+        });
+    </script>
+</body>
+</html>
