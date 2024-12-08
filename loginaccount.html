@@ -106,7 +106,7 @@
                 alert('Đăng nhập thành công!');
                 window.location.href = `/home?logined&user=${encodeURIComponent(username)}`;
             } else {
-                errorMsg.textContent = 'Tên đăng nhập hoặc mật khẩu không chính xác.';
+                    errorMsg.textContent = 'Hệ thống đang bận, thử sai sau nha cậu :(';
                 errorMsg.style.display = 'block';
             }
         });
