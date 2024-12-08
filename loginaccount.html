@@ -1,32 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Login</h1>
-        <form id="loginForm">
-            <input type="text" placeholder="Username" required>
-            <input type="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-        <button id="createAccountButton">Create New Account</button>
-    </div>
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Ngăn việc reload trang
 
-    <script>
-        document.getElementById('loginForm').onsubmit = function(e) {
-            e.preventDefault();
-            const username = document.querySelector('input[type="text"]').value;
-            window.location.href = `/home?logined&user=${username}`;
-        };
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const errorMsg = document.getElementById('errorMsg'); // Phần hiển thị lỗi
 
-        document.getElementById('createAccountButton').onclick = function() {
-            window.location.href = '/createaccount';
-        };
-    </script>
-</body>
-</html>
+    // Xóa thông báo lỗi cũ
+    errorMsg.textContent = '';
+    errorMsg.style.display = 'none';
+
+    // Kiểm tra các trường dữ liệu
+    if (!username || !password) {
+        errorMsg.textContent = 'Hãy nhập thông tin đầy đủ!';
+        errorMsg.style.display = 'block';
+        return;
+    }
+
+    // Kiểm tra thông tin đăng nhập
+    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const user = existingUsers.find(user => user.username === username && user.password === password);
+
+    if (user) {
+        alert('Đăng nhập thành công!');
+        window.location.href = `/home?logined&user=${encodeURIComponent(username)}`;
+    } else {
+        errorMsg.textContent = 'Tên đăng nhập hoặc mật khẩu không chính xác.';
+        errorMsg.style.display = 'block';
+    }
+});
